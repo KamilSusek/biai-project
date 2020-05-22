@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox   xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.polsl.biai.NetController"
+            prefHeight="100.0" prefWidth="350.0" spacing="10" alignment="CENTER">
+
+    <Button onAction="#train">Train</Button>
+    <Button onAction="#test">Test</Button>
+    <Button onAction="#recognize">Test</Button>
+</VBox>
