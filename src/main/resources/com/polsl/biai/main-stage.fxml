@@ -13,7 +13,7 @@
          </Button>
       </children>
    </HBox>
-   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+   <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
     <Button contentDisplay="TOP" onAction="#recognize">Recognize</Button>
-   <Label text="Label" />
+   <Label fx:id="label" text="Label" />
 </VBox>

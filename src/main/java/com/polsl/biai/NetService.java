@@ -15,6 +15,7 @@ public class NetService {
     Network network = new Network();
     private FileUtils fileUtils = new FileUtils();
     XMLConfigInstance cfg;
+
     public NetService() throws ParserConfigurationException, SAXException, IOException {
         cfg = fileUtils.readConfigXML("config.xml");
         System.out.println(cfg.getMnistPath() + " " + cfg.getModelPath());
@@ -41,9 +42,10 @@ public class NetService {
         network.loadModel(modelPath);
     }
 
-    public void recognize(String file) throws IOException {
+    public String recognize(String file) throws IOException {
         String modelPath = cfg.getModelPath();
         network.restoreNetworkModel(modelPath);
-        network.evaluateOnFile(file);
+        String result = network.evaluateOnFile(file);
+        return result;
     }
 }
