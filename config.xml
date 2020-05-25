@@ -1,0 +1,5 @@
+<config>
+    <mnist-path>F:\\STUDIA\\BIAI PROJEKT\\mnist_png</mnist-path>
+    <model-name>model</model-name>
+</config>
+

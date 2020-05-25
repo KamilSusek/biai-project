@@ -1,5 +1,7 @@
 package com.polsl.biai;
 
+import com.polsl.biai.model.utils.FileUtils;
+import com.polsl.biai.model.utils.XMLConfigInstance;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -17,7 +19,7 @@ import java.io.File;
 public class NetController {
 
     private NetService netService;
-
+    private FileUtils fileUtils = new FileUtils();
     @Autowired
     public NetController(NetService netService) {
         this.netService = netService;
@@ -25,6 +27,9 @@ public class NetController {
 
     public void train() {
         try {
+            XMLConfigInstance cfg = fileUtils.readConfigXML("config.xml");
+            String mnistPath = cfg.getMnistPath();
+            String modelPath = cfg.getModelPath();
             netService.train();
             netService.save();
         } catch (Exception e) {
@@ -41,9 +46,7 @@ public class NetController {
     }
 
     public void recognize() {
-
         FileChooser fChooser = new FileChooser();
-
         File fileName = fChooser.showOpenDialog(new Stage());
         /*try {
             netService.recognize(file);

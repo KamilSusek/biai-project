@@ -8,38 +8,41 @@
         <version>2.2.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.vojtechruzicka</groupId>
-    <artifactId>javafx-weaver-example</artifactId>
+    <groupId>com.polsl.biai</groupId>
+    <artifactId>text-recognizer</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>javafx-weaver-example</name>
-    <description>Demo project for Spring Boot and JavaFX integration</description>
+    <name>text-recognizer</name>
+    <description>Text recognizer using neural net</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
+        <!-- JavaFx and Spring-Boot weaver -->
         <dependency>
             <groupId>net.rgielen</groupId>
             <artifactId>javafx-weaver-spring-boot-starter</artifactId>
             <version>1.3.0</version>
         </dependency>
+        <!-- Dl4j core -->
         <dependency>
             <groupId>org.deeplearning4j</groupId>
             <artifactId>deeplearning4j-core</artifactId>
             <version>1.0.0-beta6</version>
         </dependency>
-
+        <!-- Nd4j backend -->
         <dependency>
             <groupId>org.nd4j</groupId>
             <artifactId>nd4j-native-platform</artifactId>
             <version>1.0.0-beta6</version>
         </dependency>
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
