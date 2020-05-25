@@ -21,8 +21,8 @@ import java.util.List;
 
 public class Network {
 
-    private static final String DATA_FILE_PATH = "F:\\STUDIA\\BIAI PROJEKT\\mnist_png";
-    private static final String SERIALIZE_MODEL_PATH = "trained_mnist_model.zip";
+    //private static final String DATA_FILE_PATH = "F:\\STUDIA\\BIAI PROJEKT\\mnist_png";
+    //private static final String SERIALIZE_MODEL_PATH = "trained_mnist_model.zip";
     private final FileUtils fileUtils = new FileUtils();
     private DataSetUtils dataSetUtils = new DataSetUtils();
     NetConfig config = new NetConfig();
@@ -38,10 +38,14 @@ public class Network {
         network = new Net(config.getConfig());
     }
 
-    public void train() throws IOException {
+    /**
+     * Trains model using files provided by dataPath.
+     * @param dataPath dataset location
+     * */
+    public void train(String dataPath) throws IOException {
         myTempLogger("## ROZPOCZETO TRENING ##");
         DataSetIterator iter =
-                dataSetUtils.createDataSetIterator(DATA_FILE_PATH + "\\training");
+                dataSetUtils.createDataSetIterator(dataPath + "\\training");
         network.getModel().init();
 
         for (int i = 0; i < 15; i++) {
@@ -50,29 +54,42 @@ public class Network {
         myTempLogger("## ZAKOŃCZONO TRENING ##");
     }
 
-    public void configureModel() {
+    /**
+     * TODO
+     * */
+    public void configureModel() {}
 
-    }
-
-    public void saveModel() throws IOException {
+    /**
+     * Serializes trained model in specified path.
+     * @param serializePath location where model is saved.
+     * */
+    public void saveModel(String serializePath) throws IOException {
         myTempLogger("## ZAPISYWANIE MODELU ##");
-        File locationToSave = new File(SERIALIZE_MODEL_PATH);
+        File locationToSave = new File(serializePath);
         boolean saveUpdater = false;
         network.getModel().save(locationToSave, saveUpdater);
-        myTempLogger("## MODEL ZAPISANO W " + SERIALIZE_MODEL_PATH + " ##");
+        myTempLogger("## MODEL ZAPISANO W " + serializePath + " ##");
     }
 
-    public void loadModel() throws IOException {
+    /**
+     * Loads model from specified path.
+     * @param serializePath location of serialized model.
+     * */
+    public void loadModel(String serializePath) throws IOException {
         myTempLogger("## WCZYTYWANIE MODELU ##");
-        File locationToSave = new File(SERIALIZE_MODEL_PATH);
+        File locationToSave = new File(serializePath);
         network.setModel(MultiLayerNetwork.load(locationToSave, true));
         myTempLogger("## WCZYTANO MODEL ##");
     }
 
-    public void evaluateOnTest() throws IOException {
+    /**
+     * Provides evaluation of model based on test data set.
+     * @param dataPath dataset location.
+     * */
+    public void evaluateOnTest(String dataPath) throws IOException {
         myTempLogger("## ROZPOCZĘTO TESTOWANIE ##");
         DataSetIterator iter =
-                dataSetUtils.createDataSetIterator(DATA_FILE_PATH + "\\testing");
+                dataSetUtils.createDataSetIterator(dataPath + "\\testing");
         Evaluation eval = new Evaluation(10);
 
         while (iter.hasNext()) {
@@ -84,18 +101,23 @@ public class Network {
         myTempLogger(eval.stats());
     }
 
-    public void restoreNetworkModel() throws IOException {
-        File locationToSave = new File(SERIALIZE_MODEL_PATH);
+    /**
+     * Restores model from specified location.
+     * @param serializePath location of serialized model.
+     * */
+    public void restoreNetworkModel(String serializePath) throws IOException {
+        File locationToSave = new File(serializePath);
         network.setModel(ModelSerializer.restoreMultiLayerNetwork(locationToSave));
     }
 
+    /**
+     * Evaluates model on specified file.
+     * @param chosenFile file location.
+     * */
     public String evaluateOnFile(String chosenFile) throws IOException {
         myTempLogger("## ROZPOCZĘTO ROZPOZNAWANIE ZNAKU ##");
         List<String> labelList = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
         String result;
-        FileChooser fileChooser = new FileChooser();
-        //String chosenFile = fileUtils.FileChooser();
-        File locationToSave = new File(SERIALIZE_MODEL_PATH);
         File file = new File(chosenFile);
 
         NativeImageLoader loader = new NativeImageLoader(dataConfig.HEIGHT, dataConfig.WIDTH, dataConfig.CHANNELS);
@@ -105,7 +127,7 @@ public class Network {
         scaler.transform(image);
 
         INDArray output = network.getModel().output(image);
-        myTempLogger("## FILE CHOSEN:" + chosenFile);
+        myTempLogger("## FILE:" + chosenFile);
         myTempLogger(output.toString());
         myTempLogger(labelList.toString());
         double array[] = output.toDoubleVector();

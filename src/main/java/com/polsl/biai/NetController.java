@@ -27,9 +27,6 @@ public class NetController {
 
     public void train() {
         try {
-            XMLConfigInstance cfg = fileUtils.readConfigXML("config.xml");
-            String mnistPath = cfg.getMnistPath();
-            String modelPath = cfg.getModelPath();
             netService.train();
             netService.save();
         } catch (Exception e) {

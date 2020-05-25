@@ -3,7 +3,7 @@ package com.polsl.biai.model.network;
 public class NetworkService {
     public static void main(String[] args) throws Exception {
         Network network = new Network();
-        network.train();
+        //network.train();
      //   network.evaluateOnFile();
     }
 }

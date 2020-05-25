@@ -1,5 +1,5 @@
 <config>
     <mnist-path>F:\\STUDIA\\BIAI PROJEKT\\mnist_png</mnist-path>
-    <model-name>model</model-name>
+    <model-name>model.zip</model-name>
 </config>
 
