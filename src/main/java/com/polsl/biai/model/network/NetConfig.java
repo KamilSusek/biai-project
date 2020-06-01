@@ -18,7 +18,7 @@ public class NetConfig {
     private final int WIDTH = 28;
     private final int CHANNELS = 1;
     private final int SEED = 123;
-    private final int OUTPUT_NUMBER = 10;
+    private final int OUTPUT_NUMBER = 36;
 
     NetConfig() {
         config = new NeuralNetConfiguration.Builder()

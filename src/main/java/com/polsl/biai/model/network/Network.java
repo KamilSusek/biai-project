@@ -3,7 +3,6 @@ package com.polsl.biai.model.network;
 import com.polsl.biai.model.DataConfig;
 import com.polsl.biai.model.utils.DataSetUtils;
 import com.polsl.biai.model.utils.FileUtils;
-import javafx.stage.FileChooser;
 import org.datavec.image.loader.NativeImageLoader;
 import org.deeplearning4j.nn.multilayer.MultiLayerNetwork;
 import org.deeplearning4j.util.ModelSerializer;
@@ -40,8 +39,9 @@ public class Network {
 
     /**
      * Trains model using files provided by dataPath.
+     *
      * @param dataPath dataset location
-     * */
+     */
     public void train(String dataPath) throws IOException {
         myTempLogger("## ROZPOCZETO TRENING ##");
         DataSetIterator iter =
@@ -56,13 +56,15 @@ public class Network {
 
     /**
      * TODO
-     * */
-    public void configureModel() {}
+     */
+    public void configureModel() {
+    }
 
     /**
      * Serializes trained model in specified path.
+     *
      * @param serializePath location where model is saved.
-     * */
+     */
     public void saveModel(String serializePath) throws IOException {
         myTempLogger("## ZAPISYWANIE MODELU ##");
         File locationToSave = new File(serializePath);
@@ -73,8 +75,9 @@ public class Network {
 
     /**
      * Loads model from specified path.
+     *
      * @param serializePath location of serialized model.
-     * */
+     */
     public void loadModel(String serializePath) throws IOException {
         myTempLogger("## WCZYTYWANIE MODELU ##");
         File locationToSave = new File(serializePath);
@@ -84,8 +87,9 @@ public class Network {
 
     /**
      * Provides evaluation of model based on test data set.
+     *
      * @param dataPath dataset location.
-     * */
+     */
     public void evaluateOnTest(String dataPath) throws IOException {
         myTempLogger("## ROZPOCZĘTO TESTOWANIE ##");
         DataSetIterator iter =
@@ -103,8 +107,9 @@ public class Network {
 
     /**
      * Restores model from specified location.
+     *
      * @param serializePath location of serialized model.
-     * */
+     */
     public void restoreNetworkModel(String serializePath) throws IOException {
         File locationToSave = new File(serializePath);
         network.setModel(ModelSerializer.restoreMultiLayerNetwork(locationToSave));
@@ -112,11 +117,16 @@ public class Network {
 
     /**
      * Evaluates model on specified file.
+     *
      * @param chosenFile file location.
-     * */
+     */
     public String evaluateOnFile(String chosenFile) throws IOException {
         myTempLogger("## ROZPOCZĘTO ROZPOZNAWANIE ZNAKU ##");
-        List<String> labelList = Arrays.asList("0", "1", "2", "3", "4", "5", "6", "7", "8", "9");
+        List<String> labelList = Arrays.asList(
+                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b",
+                "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+                "o", "p", "q", "r", "s", "t", "u", "v", "x", "y", "z"
+        );
         String result;
         File file = new File(chosenFile);
 
