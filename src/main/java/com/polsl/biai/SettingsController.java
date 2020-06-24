@@ -26,14 +26,10 @@ public class SettingsController {
     public void initialize() {
         this.stage = new Stage();
         stage.setScene(new Scene(settingsDialog));
-
     }
 
     public void show(VBox main) {
-        //main.setDisable(true);
-        stage.setAlwaysOnTop(true);
         stage.show();
-
     }
 
     public void setModelPath() {

@@ -1,8 +1,11 @@
 package com.polsl.biai;
 
 
+import com.polsl.biai.model.SpecialFeature;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -39,7 +42,6 @@ public class NetController {
         this.fxWeaver = fxWeaver;
         this.netService = netService;
     }
-
 
 
     public void train() {
@@ -89,19 +91,23 @@ public class NetController {
         }
     }
 
-    public void changeSettings(){
+    public void changeSettings() {
         fxWeaver.loadController(SettingsController.class).show(main);
-        //main.setDisable(true);
     }
 
     public void feature() {
         try {
-
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File chosenDir = directoryChooser.showDialog(new Stage());
 
             if (chosenDir != null) {
-                //feature actions here
+                SpecialFeature feature = new SpecialFeature();
+                String result;
+                result = feature.runFeature(chosenDir.toString());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Result");
+                alert.setContentText(result);
+                alert.showAndWait();
             }
 
         } catch (Exception e) {

@@ -7,6 +7,12 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 
@@ -33,21 +39,37 @@ public class FileUtils {
         return new XMLConfig(mnistPath, modelPath);
     }
 
-    public void setMnistPath(String fileName, String mnistPath) throws IOException, SAXException, ParserConfigurationException {
+    public void setMnistPath(String fileName, String mnistPath) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         Document document = openXMLFile(fileName);
-        System.out.println(mnistPath);
         document.getElementsByTagName("mnist-path")
                 .item(0)
                 .setTextContent(mnistPath);
-        // TODO FIX
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+
+        DOMSource domSource = new DOMSource(document);
+
+        StreamResult streamResult = new StreamResult(new File(fileName));
+        transformer.transform(domSource, streamResult);
+
     }
 
-    public void setModelPath(String fileName, String modelPath) throws IOException, SAXException, ParserConfigurationException {
+    public void setModelPath(String fileName, String modelPath) throws IOException, SAXException, ParserConfigurationException, TransformerException {
         Document document = openXMLFile(fileName);
-        Node element = document.getElementsByTagName("config").item(0);
-        element.getChildNodes().item(1).setTextContent(modelPath);
+        document.getElementsByTagName("model-name")
+                .item(0)
+                .setTextContent(modelPath);
+
         System.out.println(modelPath);
-        // TODO FIX
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+
+        DOMSource domSource = new DOMSource(document);
+
+        StreamResult streamResult = new StreamResult(new File(fileName));
+        transformer.transform(domSource, streamResult);
     }
 
 }
