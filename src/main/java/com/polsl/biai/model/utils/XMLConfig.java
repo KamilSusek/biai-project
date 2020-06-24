@@ -1,10 +1,10 @@
 package com.polsl.biai.model.utils;
 
-public class XMLConfigInstance {
+public class XMLConfig {
     private String mnistPath;
     private String modelPath;
-
-    public XMLConfigInstance(String mnistPath,String modelPath){
+    public XMLConfig(){}
+    public XMLConfig(String mnistPath, String modelPath){
         this.mnistPath = mnistPath;
         this.modelPath = modelPath;
     }

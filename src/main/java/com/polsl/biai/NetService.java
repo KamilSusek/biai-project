@@ -2,7 +2,7 @@ package com.polsl.biai;
 
 import com.polsl.biai.model.network.Network;
 import com.polsl.biai.model.utils.FileUtils;
-import com.polsl.biai.model.utils.XMLConfigInstance;
+import com.polsl.biai.model.utils.XMLConfig;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -12,9 +12,9 @@ import java.io.IOException;
 @Service
 public class NetService {
 
-    Network network = new Network();
+    private Network network = new Network();
     private FileUtils fileUtils = new FileUtils();
-    XMLConfigInstance cfg;
+    private XMLConfig cfg;
 
     public NetService() throws ParserConfigurationException, SAXException, IOException {
         cfg = fileUtils.readConfigXML("config.xml");
@@ -23,18 +23,28 @@ public class NetService {
 
 
     public void train() throws IOException {
-        String dataPath = cfg.getMnistPath();
-        network.train(dataPath);
+        try {
+            String dataPath = cfg.getMnistPath();
+            network.train(dataPath);
+        } catch (IOException e) {
+            throw new IOException("Directory contains invalid data or cannot be opened");
+        }
     }
 
     public void test() throws IOException {
+        String modelPath = cfg.getModelPath();
+        network.restoreNetworkModel(modelPath);
         String dataPath = cfg.getMnistPath();
         network.evaluateOnTest(dataPath);
     }
 
     public void save() throws IOException {
-        String modelPath = cfg.getModelPath();
-        network.saveModel(modelPath);
+        try {
+            String modelPath = cfg.getModelPath();
+            network.saveModel(modelPath);
+        } catch (IOException e) {
+            throw new IOException("Trained model cannot be saved.");
+        }
     }
 
     public void load() throws IOException {

@@ -94,7 +94,7 @@ public class Network {
         myTempLogger("## ROZPOCZĘTO TESTOWANIE ##");
         DataSetIterator iter =
                 dataSetUtils.createDataSetIterator(dataPath + "\\testing");
-        Evaluation eval = new Evaluation(10);
+        Evaluation eval = new Evaluation(36);
 
         while (iter.hasNext()) {
             DataSet next = iter.next();

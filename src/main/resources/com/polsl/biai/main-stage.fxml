@@ -4,16 +4,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox alignment="CENTER" prefHeight="100.0" prefWidth="350.0" spacing="10"
+<VBox fx:id="main" alignment="CENTER" prefHeight="100.0" prefWidth="350.0" spacing="10"
       xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.polsl.biai.NetController">
     <HBox prefHeight="100.0" prefWidth="200.0">
         <children>
             <Button onAction="#train">Train</Button>
             <Button onAction="#test">Test</Button>
-            <Button alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Settings">
-
+            <Button fx:id="settings" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" text="Settings" onAction="#changeSettings">
             </Button>
+            <Button onAction="#feature">Feature</Button>
         </children>
     </HBox>
     <ImageView fx:id="imageView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true"/>

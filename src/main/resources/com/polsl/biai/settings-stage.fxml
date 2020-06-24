@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="settingsDialog" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.polsl.biai.SettingsController">
+    <Label text="Provide path to dataset and model!"/>
+    <Button onAction="#setMnistPath">Dataset</Button>
+    <Button onAction="#setModelPath">Model</Button>
+
+
+</VBox>
