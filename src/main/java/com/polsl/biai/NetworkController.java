@@ -1,7 +1,8 @@
 package com.polsl.biai;
 
 
-import com.polsl.biai.model.SpecialFeature;
+import com.polsl.biai.model.service.NetworkService;
+import com.polsl.biai.model.service.SpecialFeatureService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -22,7 +23,7 @@ import java.io.IOException;
 
 @Component
 @FxmlView("main-stage.fxml")
-public class NetController {
+public class NetworkController {
 
     private final FxWeaver fxWeaver;
 
@@ -35,19 +36,19 @@ public class NetController {
     @FXML
     Button settings;
 
-    private NetService netService;
+    private NetworkService networkService;
 
     @Autowired
-    public NetController(FxWeaver fxWeaver, NetService netService) {
+    public NetworkController(FxWeaver fxWeaver, NetworkService networkService) {
         this.fxWeaver = fxWeaver;
-        this.netService = netService;
+        this.networkService = networkService;
     }
 
 
     public void train() {
         try {
-            netService.train();
-            netService.save();
+            networkService.train();
+            networkService.save();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Exception.");
@@ -58,7 +59,7 @@ public class NetController {
 
     public void test() {
         try {
-            netService.test();
+            networkService.test();
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setHeaderText("Exception.");
@@ -80,7 +81,7 @@ public class NetController {
             if (fileName != null) {
                 Image image = new Image(String.valueOf(fileName.toURI()));
                 imageView.setImage(image);
-                String result = netService.recognize(fileName.toString());
+                String result = networkService.recognize(fileName.toString());
                 label.setText(result);
             }
         } catch (NullPointerException | IOException e) {
@@ -95,13 +96,16 @@ public class NetController {
         fxWeaver.loadController(SettingsController.class).show(main);
     }
 
+    /**
+     * Provides 'special feature' logic
+     * */
     public void feature() {
         try {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File chosenDir = directoryChooser.showDialog(new Stage());
 
             if (chosenDir != null) {
-                SpecialFeature feature = new SpecialFeature();
+                SpecialFeatureService feature = new SpecialFeatureService();
                 String result;
                 result = feature.runFeature(chosenDir.toString());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);

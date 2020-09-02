@@ -11,16 +11,25 @@ import org.nd4j.linalg.activations.Activation;
 import org.nd4j.linalg.learning.config.Nesterovs;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
-public class NetConfig {
+public class NetworkConfig {
 
-    private MultiLayerConfiguration config;
+    // picture height
     private final int HEIGHT = 28;
+    // picture width
     private final int WIDTH = 28;
+    // RGB channels
     private final int CHANNELS = 1;
+    // seed for random generator
     private final int SEED = 123;
+    // number of output classes, 36 = digits + letters
     private final int OUTPUT_NUMBER = 36;
+    // number of nodes
+    private final int NODES = 500;
+    // Neural net config
+    private MultiLayerConfiguration config;
 
-    NetConfig() {
+    NetworkConfig() {
+        // models configuration
         config = new NeuralNetConfiguration.Builder()
                 .seed(SEED)
                 .optimizationAlgo(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
@@ -29,12 +38,18 @@ public class NetConfig {
                 .list()
                 .layer(0, new DenseLayer.Builder()
                         .nIn(HEIGHT * WIDTH)
-                        .nOut(100)
-                        .activation(Activation.RELU)
+                        .nOut(NODES)
+                        .activation(Activation.RELU )
                         .weightInit(WeightInit.XAVIER)
                         .build())
-                .layer(1, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
-                        .nIn(100)
+                .layer(1, new DenseLayer.Builder()
+                        .nIn(NODES)
+                        .nOut(NODES)
+                        .activation(Activation.RELU )
+                        .weightInit(WeightInit.XAVIER)
+                        .build())
+                .layer(2, new OutputLayer.Builder(LossFunctions.LossFunction.NEGATIVELOGLIKELIHOOD)
+                        .nIn(NODES)
                         .nOut(OUTPUT_NUMBER)
                         .activation(Activation.SOFTMAX)
                         .weightInit(WeightInit.XAVIER)
@@ -43,11 +58,11 @@ public class NetConfig {
                 .build();
     }
 
-    public MultiLayerConfiguration getConfig(){
+    public MultiLayerConfiguration getConfig() {
         return config;
     }
 
-    public void setConfig(MultiLayerConfiguration config){
+    public void setConfig(MultiLayerConfiguration config) {
         this.config = config;
     }
 }

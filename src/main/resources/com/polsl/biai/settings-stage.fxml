@@ -8,6 +8,4 @@
     <Label text="Provide path to dataset and model!"/>
     <Button onAction="#setMnistPath">Dataset</Button>
     <Button onAction="#setModelPath">Model</Button>
-
-
 </VBox>

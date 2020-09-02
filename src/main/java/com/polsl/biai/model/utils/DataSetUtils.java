@@ -1,6 +1,5 @@
 package com.polsl.biai.model.utils;
 
-import com.polsl.biai.model.DataConfig;
 import org.datavec.api.io.labels.ParentPathLabelGenerator;
 import org.datavec.api.records.listener.impl.LogRecordListener;
 import org.datavec.api.split.FileSplit;

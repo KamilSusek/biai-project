@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox fx:id="main" alignment="CENTER" prefHeight="100.0" prefWidth="350.0" spacing="10"
       xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.polsl.biai.NetController">
+      fx:controller="com.polsl.biai.NetworkController">
     <HBox prefHeight="100.0" prefWidth="200.0">
         <children>
             <Button onAction="#train">Train</Button>

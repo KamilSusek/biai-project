@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
@@ -34,10 +35,14 @@ public class SettingsController {
 
     public void setModelPath() {
         try {
-            DirectoryChooser directoryChooser = new DirectoryChooser();
-            File chosenDir = directoryChooser.showDialog(new Stage());
-            if (chosenDir != null) {
-                fileUtils.setModelPath("config.xml", chosenDir.toString());
+            FileChooser fChooser = new FileChooser();
+            fChooser.setTitle("Open model");
+            fChooser.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter("Model", "*zip")
+            );
+            File chosenFile= fChooser.showOpenDialog(new Stage());
+            if (chosenFile != null) {
+                fileUtils.setModelPath("config.xml", chosenFile.toString());
             }
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

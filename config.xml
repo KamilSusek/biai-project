@@ -1,5 +1,4 @@
-<config>
-    <mnist-path>F:\\STUDIA\\BIAI PROJEKT\\mnist_png</mnist-path>
-    <model-name>model.zip</model-name>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><config>
+    <mnist-path>F:\STUDIA\BIAI PROJEKT\mnist_png</mnist-path>
+    <model-name>C:\Users\Kamil\Desktop\BIAI\biai-project\model.zip</model-name>
 </config>
-

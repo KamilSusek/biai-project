@@ -1,4 +1,4 @@
-package com.polsl.biai.model;
+package com.polsl.biai.model.utils;
 
 public final class DataConfig {
     public final int HEIGHT = 28;

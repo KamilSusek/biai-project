@@ -1,6 +1,6 @@
-package com.polsl.biai;
+package com.polsl.biai.model.service;
 
-import com.polsl.biai.model.network.Network;
+import com.polsl.biai.model.network.NetworkToolkit;
 import com.polsl.biai.model.utils.FileUtils;
 import com.polsl.biai.model.utils.XMLConfig;
 import org.springframework.stereotype.Service;
@@ -9,23 +9,26 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 
-@Service
-public class NetService {
+/**
+ * This class wraps networks action into methods that provide applications services.
+ */
 
-    private Network network = new Network();
+@Service
+public class NetworkService {
+
+    private NetworkToolkit networkToolkit = new NetworkToolkit();
     private FileUtils fileUtils = new FileUtils();
     private XMLConfig cfg;
 
-    public NetService() throws ParserConfigurationException, SAXException, IOException {
+    public NetworkService() throws ParserConfigurationException, SAXException, IOException {
         cfg = fileUtils.readConfigXML("config.xml");
         System.out.println(cfg.getMnistPath() + " " + cfg.getModelPath());
     }
 
-
     public void train() throws IOException {
         try {
             String dataPath = cfg.getMnistPath();
-            network.train(dataPath);
+            networkToolkit.train(dataPath);
         } catch (IOException e) {
             throw new IOException("Directory contains invalid data or cannot be opened");
         }
@@ -33,15 +36,15 @@ public class NetService {
 
     public void test() throws IOException {
         String modelPath = cfg.getModelPath();
-        network.restoreNetworkModel(modelPath);
+        networkToolkit.restoreNetworkModel(modelPath);
         String dataPath = cfg.getMnistPath();
-        network.evaluateOnTest(dataPath);
+        networkToolkit.evaluateOnTest(dataPath);
     }
 
     public void save() throws IOException {
         try {
             String modelPath = cfg.getModelPath();
-            network.saveModel(modelPath);
+            networkToolkit.saveModel(modelPath);
         } catch (IOException e) {
             throw new IOException("Trained model cannot be saved.");
         }
@@ -49,13 +52,13 @@ public class NetService {
 
     public void load() throws IOException {
         String modelPath = cfg.getModelPath();
-        network.loadModel(modelPath);
+        networkToolkit.loadModel(modelPath);
     }
 
     public String recognize(String file) throws IOException {
         String modelPath = cfg.getModelPath();
-        network.restoreNetworkModel(modelPath);
-        String result = network.evaluateOnFile(file);
+        networkToolkit.restoreNetworkModel(modelPath);
+        String result = networkToolkit.evaluateOnFile(file);
         return result;
     }
 }
